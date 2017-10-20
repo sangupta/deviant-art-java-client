@@ -9,7 +9,13 @@ public static void main(String[] args) {
   DeviantArtClient client = new DeviantArtClient();
   client.setHttpService(new DefaultHttpServiceImpl());
 
-  List<DeviantArtImage> images = client.getImages(DeviantArtCategory.DigitalArt, DeviantArtBoost.Popular, DeviantArtSort.Time, DeviantArtType.Deviation, null);
+  List<DeviantArtImage> images = client.getImages(
+  	DeviantArtCategory.DigitalArt,	// in the digital art section 
+  	DeviantArtBoost.Popular, 		// that are most popular
+  	DeviantArtSort.Time,             // sort by newest first
+  	DeviantArtType.Deviation,        // all deviations
+  	null);
+  
   System.out.println(images.size());
 }
 ```
