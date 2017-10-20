@@ -10,8 +10,8 @@ public static void main(String[] args) {
   client.setHttpService(new DefaultHttpServiceImpl());
 
   List<DeviantArtImage> images = client.getImages(
-  	DeviantArtCategory.DigitalArt,	// in the digital art section 
-  	DeviantArtBoost.Popular, 		// that are most popular
+  	DeviantArtCategory.DigitalArt,   // in the digital art section 
+  	DeviantArtBoost.Popular,         // that are most popular
   	DeviantArtSort.Time,             // sort by newest first
   	DeviantArtType.Deviation,        // all deviations
   	null);
