@@ -12,6 +12,7 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
+import com.sangupta.deviantart.model.DeviantArtImage;
 import com.sangupta.jerry.http.WebResponse;
 import com.sangupta.jerry.http.service.HttpService;
 import com.sangupta.jerry.util.DomUtils;

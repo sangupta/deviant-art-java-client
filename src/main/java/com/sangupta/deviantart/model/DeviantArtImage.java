@@ -1,4 +1,4 @@
-package com.sangupta.deviantart;
+package com.sangupta.deviantart.model;
 
 import java.util.List;
 

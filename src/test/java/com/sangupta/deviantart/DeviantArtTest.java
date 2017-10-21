@@ -2,6 +2,7 @@ package com.sangupta.deviantart;
 
 import java.util.List;
 
+import com.sangupta.deviantart.model.DeviantArtImage;
 import com.sangupta.jerry.http.service.impl.DefaultHttpServiceImpl;
 
 public class DeviantArtTest {
