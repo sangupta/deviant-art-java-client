@@ -46,5 +46,45 @@ public class DeviantArtImage {
 	public boolean nsfw;
 	
 	public List<String> tags;
+	
+	@Override
+	public int hashCode() {
+		if(this.url == null) {
+			return 0;
+		}
+		
+		return this.url.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null) {
+			return false;
+		}
+		
+		if(this == obj) {
+			return true;
+		}
+		
+		if(this.url == null) {
+			return false;
+		}
+		
+		if(obj instanceof DeviantArtImage) {
+			DeviantArtImage other = (DeviantArtImage) obj;
+			
+			return this.url.equals(other.url);
+		}
+		
+		if(obj instanceof String) {
+			return this.url.equals(obj); 
+		}
+		
+		return false;
+	}
 
+	@Override
+	public String toString() {
+		return "DeviantArtImage: " + this.url;
+	}
 }
