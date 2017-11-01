@@ -36,6 +36,7 @@ import com.rometools.rome.io.SyndFeedInput;
 import com.sangupta.deviantart.model.DeviantArtImage;
 import com.sangupta.jerry.http.WebResponse;
 import com.sangupta.jerry.http.service.HttpService;
+import com.sangupta.jerry.util.AssertUtils;
 import com.sangupta.jerry.util.DomUtils;
 import com.sangupta.jerry.util.UriUtils;
 
@@ -66,6 +67,7 @@ public class DeviantArtClient {
 		
 		// the final URL
 		String url = "https://backend.deviantart.com/rss.xml?q=" + UriUtils.encodeURIComponent(query.toString()) + "&type=" + type.getKey();
+		LOGGER.debug("Fetching deviantart URL: {}", url);
 		
 		// hit it
 		WebResponse response = this.httpService.doGET(url);
@@ -112,13 +114,14 @@ public class DeviantArtClient {
 				image.descriptionType = entry.getDescription().getType();
 				image.description = entry.getDescription().getValue();
 			}
+			
 			image.publishDate = entry.getPublishedDate() != null ? entry.getPublishedDate().getTime() : 0;
 			
 			List<String> authors = DomUtils.getTagValues("credit", "role", "author", elements);
 			String authorName = null;
 			String authorURL = null;
 			for(String value : authors) {
-				if(value.startsWith("http://")) {
+				if(UriUtils.appearsValidUrl(value)) {
 					authorURL = value;
 				} else {
 					authorName = value;
@@ -128,11 +131,35 @@ public class DeviantArtClient {
 			image.authorUrl = authorURL;
 			
 			image.copyright= DomUtils.getTagValues("copyright", elements).get(0);
+			image.nsfw = "nonadult".equalsIgnoreCase(getValue(elements, "rating")) ? false : true;
 			
 			images.add(image);
 		}
 		
 		return images;
+	}
+	
+	private static String getValue(List<Element> elements, String name) {
+		Element ele = getElement(elements, name);
+		if(ele == null) {
+			return null;
+		}
+		
+		return ele.getValue();
+	}
+	
+	private static Element getElement(List<Element> elements, String name) {
+		if(AssertUtils.isEmpty(elements)) {
+			return null;
+		}
+		
+		for(Element element : elements) {
+			if(name.equals(element.getName())) {
+				return element;
+			}
+		}
+		
+		return null;
 	}
 	
 	// Usual accessors follow

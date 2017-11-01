@@ -43,6 +43,8 @@ public class DeviantArtImage {
 	
 	public String copyright;
 	
+	public boolean nsfw;
+	
 	public List<String> tags;
 
 }
